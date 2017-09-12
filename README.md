@@ -1,0 +1,1 @@
+## Libgdx example project with Dagger2 DI 
