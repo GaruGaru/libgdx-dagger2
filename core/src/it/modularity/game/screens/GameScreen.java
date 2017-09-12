@@ -1,27 +1,29 @@
 package it.modularity.game.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import it.modularity.game.render.GameRenderer;
+import it.modularity.game.world.GameController;
 
 public class GameScreen extends BaseScreen {
 
-    private SpriteBatch batch;
-    private Texture img;
+    private GameRenderer renderer;
+
+    private GameController controller;
+
+    public GameScreen(GameRenderer renderer, GameController controller) {
+        this.renderer = renderer;
+        this.controller = controller;
+    }
+
 
     @Override
     public void init() {
-        batch = new SpriteBatch();
-        img = new Texture("badlogic.jpg");
+        this.renderer.init();
+        this.controller.init();
     }
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(1, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        batch.begin();
-        batch.draw(img, 0, 0);
-        batch.end();
+        this.controller.update(delta);
+        this.renderer.render(this.controller);
     }
 }
